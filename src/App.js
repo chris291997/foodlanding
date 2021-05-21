@@ -1,11 +1,13 @@
 
 import './App.css';
 import ScrollReveal from 'scrollreveal';
-import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+import React, {useState, useEffect} from 'react';
 import 'boxicons';
 import Menu from './components/Menu';
-import Buttons from './components/Buttons';
+import axios from 'axios';
+import URL from './components/UrlBase';
+import Storecode from './components/Storecode';
+
 
 const App = () => {
 
@@ -129,12 +131,49 @@ sr.reveal(`.home__data, .home__img,
 //! FUNCTIONALITY SCRIPTS
 
 
-const [menuitem, setMenuitem] = useState();
-const [buttons, setButtons] = useState([]);
+useEffect(() => {
+    
+    axios.get(URL +`index.php/store_management/loadStoredata?store_code=${Storecode}`).then(response => {
+        //  console.log(response);
+        //  console.log(response.data);
+         setInfo(response.data.store_info);
+         const infocont = response.data.store_info[0];
+         const aboutcont = response.data.store_about[0];
+         setAbout(URL+aboutcont.location);
 
 
+         setStore(infocont.store_name)
+         setTagline(infocont.store_tagline)
+         setLogo(URL + infocont.location)
+         setDesc(infocont.store_description)
+         setLocation(infocont.store_street+', '+infocont.store_brgy+', '+infocont.store_city+ ', '+infocont.store_province)
+         setTime(infocont.store_hour_start+ '-' +infocont.store_hour_end)
+         setCall(infocont.store_tel)
+         
+        
+      }).catch(error => {
+       console.log(error);
+      });
+  
+}, [])
+const [info, setInfo] = useState([]);
+
+console.log(info);
+const [store , setStore] = useState('Store Name');
+const [tagline , setTagline] = useState('Store Tagline');
+const [logo , setLogo] = useState('/img/home.png');
+const [about , setAbout] = useState('/img/about.jpg');
 
 
+const [desc , setDesc] = useState('Store Description');
+
+const [location , setLocation] = useState('');
+const [time , setTime] = useState('');
+const [call , setCall] = useState('');
+
+const [facebook , setFacebook] = useState('');
+const [instagram , setInstagram] = useState('');
+const [twitter , setTwitter] = useState('');
 
 
 
@@ -153,7 +192,7 @@ const [buttons, setButtons] = useState([]);
 
         <header className="l-header" id="header">
         <nav className="nav bd-container">
-            <a href="#" className="nav__logo">Tasty</a>
+            <a href="#" className="nav__logo">{store}</a>
 
             <div className="nav__menu" id="nav-menu">
                 <ul className="nav__list">
@@ -177,12 +216,12 @@ const [buttons, setButtons] = useState([]);
         <section className="home" id="home">
             <div className="home__container bd-container bd-grid">
                 <div className="home__data">
-                    <h1 className="home__title">Tasty food</h1>
-                    <h2 className="home__subtitle">Try the best food of <br></br> the week.</h2>
-                    <a href="#" className="button">View Menu</a>
+                    <h1 className="home__title">{store}</h1>
+                    <h2 className="home__subtitle">{tagline}</h2>
+                    <a href="#menu" className="button">View Our Menu</a>
                 </div>
 
-                <img src="/img/home.png" alt="" className="home__img"></img>
+                <img src={logo}alt="" className="home__img"></img>
             </div>
         </section>
 
@@ -190,36 +229,39 @@ const [buttons, setButtons] = useState([]);
             <div className="about__container  bd-grid">
                 <div className="about__data">
                     <span className="section-subtitle about__initial">About us</span>
-                    <h2 className="section-title about__initial">We cook the best <br></br> tasty food</h2>
-                    <p className="about__description">We cook the best food in the entire city, with excellent customer service, the best meals and at the best price, visit us.</p>
-                    <a href="#" className="button">Explore history</a>
+                    <h2 className="section-title about__initial">{tagline}</h2>
+                    <p className="about__description">{desc}</p>
+                    <a href="#home" className="button">home</a>
                 </div>
 
-                <img src="/img/about.jpg" alt="" className="about__img"></img>
+                <img src={about} alt="" className="about__img"></img>
             </div>
         </section>
 
         <section className="services section bd-container" id="services">
-            <span className="section-subtitle">Offering</span>
-            <h2 className="section-title">Our amazing services</h2>
+            <span className="section-subtitle">Here's</span>
+            <h2 className="section-title">Our Store Information</h2>
 
             <div className="services__container  bd-grid">
                 <div className="services__content">
+                <img src="/img/time.png" alt="" className="services__img"></img>
                   
-                    <h3 className="services__title">Excellent food</h3>
-                    <p className="services__description">We offer our clients excellent quality services for many years, with the best and delicious food in the city.</p>
+                    <h3 className="services__title">{time}</h3>
+                    <p className="services__description"> Our Store Hours</p>
                 </div>
 
                 <div className="services__content">
+                <img src="/img/call.png" alt="" className="services__img"></img>
                     
-                    <h3 className="services__title">Fast food</h3>
-                    <p className="services__description">We offer our clients excellent quality services for many years, with the best and delicious food in the city.</p>
+                    <h3 className="services__title">{call}</h3>
+                    <p className="services__description">Call us here</p>
                 </div>
 
                 <div className="services__content">
-                  
-                    <h3 className="services__title">Delivery</h3>
-                    <p className="services__description">We offer our clients excellent quality services for many years, with the best and delicious food in the city.</p>
+                <img src="/img/map.png" alt="" className="services__img"></img>
+                    
+                    <h3 className="services__title">{location}</h3>
+                    <p className="services__description">Get Directions</p>
                 </div>
             </div>
         </section>
@@ -236,11 +278,11 @@ const [buttons, setButtons] = useState([]);
             <div className="app__container bd-grid">
                 <div className="app__data">
                     <span className="section-subtitle app__initial">App</span>
-                    <h2 className="section-title app__initial">App is aviable</h2>
-                    <p className="app__description">Find our application and download it, you can make reservations, food orders, see your deliveries on the way and much more.</p>
+                    <h2 className="section-title app__initial">App is avaible</h2>
+                    <p className="app__description">Find our application and download it food orders, see your deliveries on the way and much more.</p>
                     <div className="app__stores">
-                        <a href="#"><img src="/img/app1.png" alt="" className="app__store"></img></a>
-                        <a href="#"><img src="/img/app2.png" alt="" className="app__store"></img></a>
+                        <a href="#"><img src="/img/AWS.png" alt="" className="app__store"></img></a>
+                        <a href="#"><img src="/img/drive.png" alt="" className="app__store"></img></a>
                     </div>
                 </div>
 
@@ -257,7 +299,7 @@ const [buttons, setButtons] = useState([]);
                 </div>
 
                 <div className="contact__button">
-                    <a href="#" className="button">Contact us now</a>
+                    <a href="#services" className="button">Contact us now</a>
                 </div>
             </div>
         </section>
