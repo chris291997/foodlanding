@@ -1,15 +1,23 @@
 import React , { useState, useEffect} from 'react';
 import URL from './UrlBase';
-import Storecode from './Storecode';
+// import Storecode from './Storecode';
 import axios from 'axios';
 
 
 const Menu = () => {
 
+    // const params = document.URL;
+    // console.log(params)
+
+    const queryParams = new URLSearchParams(window.location.search);
+    // var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
+    // var url = new URL(params);
+    var store_code = queryParams.get("store_code");
+    // console.log(store_code);
   
 useEffect(() => {
     
-    axios.get(URL +`index.php/store_management/loadStoredata?store_code=${Storecode}`).then(response => {
+    axios.get(URL +`index.php/store_management/loadStoredata?store_code=${store_code}`).then(response => {
         //  console.log(response);
         //  console.log(response.data);
        setCategory(response.data.store_category);

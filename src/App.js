@@ -6,7 +6,7 @@ import 'boxicons';
 import Menu from './components/Menu';
 import axios from 'axios';
 import URL from './components/UrlBase';
-import Storecode from './components/Storecode';
+// import Storecode from './components/Storecode';
 
 
 const App = () => {
@@ -129,11 +129,14 @@ sr.reveal(`.home__data, .home__img,
 })
 
 //! FUNCTIONALITY SCRIPTS
-
+const queryParams = new URLSearchParams(window.location.search);
+// var url_string = "http://www.example.com/t.html?a=1&b=3&c=m2-m3-m4-m5"; //window.location.href
+// var url = new URL(params);
+var store_code = queryParams.get("store_code");
 
 useEffect(() => {
     
-    axios.get(URL +`index.php/store_management/loadStoredata?store_code=${Storecode}`).then(response => {
+    axios.get(URL +`index.php/store_management/loadStoredata?store_code=${store_code}`).then(response => {
         //  console.log(response);
         //  console.log(response.data);
          setInfo(response.data.store_info);
@@ -142,14 +145,17 @@ useEffect(() => {
          setAbout(URL+aboutcont.location);
 
 
-         setStore(infocont.store_name)
-         setTagline(infocont.store_tagline)
-         setLogo(URL + infocont.location)
-         setDesc(infocont.store_description)
-         setLocation(infocont.store_street+', '+infocont.store_brgy+', '+infocont.store_city+ ', '+infocont.store_province)
-         setTime(infocont.store_hour_start+ '-' +infocont.store_hour_end)
-         setCall(infocont.store_tel)
-         
+         setStore(infocont.store_name);
+         setTagline(infocont.store_tagline);
+         setLogo(URL + infocont.location);
+         setDesc(infocont.store_description);
+         setLocation(infocont.store_street+', '+infocont.store_brgy+', '+infocont.store_city+ ', '+infocont.store_province);
+         setTime(infocont.store_hour_start+ '-' +infocont.store_hour_end);
+         setCall(infocont.store_tel);
+         setEmail(infocont.store_email);
+         setTwitter(infocont.store_twitter);
+         setFacebook(infocont.store_facebook);
+         setInstagram(infocont.store_instagram);
         
       }).catch(error => {
        console.log(error);
@@ -158,7 +164,7 @@ useEffect(() => {
 }, [])
 const [info, setInfo] = useState([]);
 
-console.log(info);
+// console.log(info);
 const [store , setStore] = useState('Store Name');
 const [tagline , setTagline] = useState('Store Tagline');
 const [logo , setLogo] = useState('/img/home.png');
@@ -170,6 +176,7 @@ const [desc , setDesc] = useState('Store Description');
 const [location , setLocation] = useState('');
 const [time , setTime] = useState('');
 const [call , setCall] = useState('');
+const [email , setEmail] = useState('');
 
 const [facebook , setFacebook] = useState('');
 const [instagram , setInstagram] = useState('');
@@ -296,7 +303,7 @@ const [twitter , setTwitter] = useState('');
                 <div className="contact__data">
                     <span className="section-subtitle contact__initial">Let's talk</span>
                     <h2 className="section-title contact__initial">Contact us</h2>
-                    <p className="contact__description">If you want to reserve a table in our restaurant, contact us and we will attend you quickly, with our 24/7 chat service.</p>
+                    <p className="contact__description">If you want to reserve a table in our restaurant, contact us and we will attend you quickly.</p>
                 </div>
 
                 <div className="contact__button">
@@ -309,30 +316,28 @@ const [twitter , setTwitter] = useState('');
         <footer className="footer section bd-container">
         <div className="footer__container bd-grid">
             <div className="footer__content">
-                <a href="#" className="footer__logo">Tasty Food</a>
-                <span className="footer__description">Restaurant</span>
+                <a href="#" className="footer__logo">{store}</a>
+                <span className="footer__description">@fudsApp</span>
                 <div>
-                    <a href="#" className="footer__social"><i className='bx bxl-facebook'></i></a>
-                    <a href="#" className="footer__social"><i className='bx bxl-instagram'></i></a>
-                    <a href="#" className="footer__social"><i className='bx bxl-twitter'></i></a>
+                    <a href={facebook} className="footer__social"><i className='bx bxl-facebook'></i></a>
+                    <a href={instagram} className="footer__social"><i className='bx bxl-instagram'></i></a>
+                    <a href={twitter} className="footer__social"><i className='bx bxl-twitter'></i></a>
                 </div>
             </div>
 
             <div className="footer__content">
                 <h3 className="footer__title">Services</h3>
                 <ul>
-                    <li><a href="#" className="footer__link">Delivery</a></li>
-                    <li><a href="#" className="footer__link">Pricing</a></li>
-                    <li><a href="#" className="footer__link">Fast food</a></li>
-                    <li><a href="#" className="footer__link">Reserve your spot</a></li>
+                    <li><a href="#services" className="footer__link">{time}</a></li>
+                    <li><a href="#services" className="footer__link">{call}</a></li>
                 </ul>
             </div>
 
             <div className="footer__content">
                 <h3 className="footer__title">Information</h3>
                 <ul>
-                    <li><a href="#" className="footer__link">Event</a></li>
-                    <li><a href="#" className="footer__link">Contact us</a></li>
+                    <li><a href="#about" className="footer__link">About Us</a></li>
+                    <li><a href="#services" className="footer__link">Contact us</a></li>
                     <li><a href="#" className="footer__link">Privacy policy</a></li>
                     <li><a href="#" className="footer__link">Terms of services</a></li>
                 </ul>
@@ -341,15 +346,16 @@ const [twitter , setTwitter] = useState('');
             <div className="footer__content">
                 <h3 className="footer__title">Adress</h3>
                 <ul>
-                    <li>Lima - Peru</li>
-                    <li>Jr Union #999</li>
-                    <li>999 - 888 - 777</li>
-                    <li>tastyfood@email.com</li>
+                   
+                    <li>{location}</li>
+                    <li>Philippines</li>
+                    <li>{call}</li>
+                    <li>{email}</li>
                 </ul>
             </div>
         </div>
 
-        <p className="footer__copy">&#169; 2020 Bedimcode. All right reserved</p>
+        <p className="footer__copy">&#169; 2021 Banana. All right reserved</p>
         </footer>
         </>
   );
