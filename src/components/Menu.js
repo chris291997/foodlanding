@@ -81,7 +81,7 @@ const allClick = () => {
                                     <h3 className="menu__name">{prod.store_product_name}</h3>
                                     {/* <span className="menu__detail">Delicious dish</span> */}
                                     <span className="menu__preci">Php{prod.price}</span>
-                                    <a href="#" className="button menu__button"><i className='bx bx-cart-alt'></i></a>
+                                    <a href="#app" className="button menu__button"><i className='bx bx-cloud-download'></i></a>
                         </div>
                 
                     

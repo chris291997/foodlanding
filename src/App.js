@@ -198,6 +198,7 @@ const [twitter , setTwitter] = useState('');
                 <ul className="nav__list">
                     <li className="nav__item"><a href="#home" className="nav__link active-link">Home</a></li>
                     <li className="nav__item"><a href="#about" className="nav__link">About</a></li>
+                    <li className="nav__item"><a href="#app" className="nav__link">Download App</a></li>
                     <li className="nav__item"><a href="#services" className="nav__link">Services</a></li>
                     <li className="nav__item"><a href="#menu" className="nav__link">Menu</a></li>
                     <li className="nav__item"><a href="#contact" className="nav__link">Contact us</a></li>
@@ -274,7 +275,7 @@ const [twitter , setTwitter] = useState('');
                
         </section>
 
-        <section className="app section bd-container">
+        <section className="app section bd-container" id="app">
             <div className="app__container bd-grid">
                 <div className="app__data">
                     <span className="section-subtitle app__initial">App</span>
@@ -282,7 +283,7 @@ const [twitter , setTwitter] = useState('');
                     <p className="app__description">Find our application and download it food orders, see your deliveries on the way and much more.</p>
                     <div className="app__stores">
                         <a href="#"><img src="/img/AWS.png" alt="" className="app__store"></img></a>
-                        <a href="#"><img src="/img/drive.png" alt="" className="app__store"></img></a>
+                        {/* <a href="#"><img src="/img/drive.png" alt="" className="app__store"></img></a> */}
                     </div>
                 </div>
 
