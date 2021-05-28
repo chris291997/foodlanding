@@ -6,6 +6,7 @@ import 'boxicons';
 import Menu from './components/Menu';
 import axios from 'axios';
 import URL from './components/UrlBase';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 // import Storecode from './components/Storecode';
 
 
@@ -77,25 +78,25 @@ function scrollTop(){
 }
 window.addEventListener('scroll', scrollTop);
 
-/*==================== DARK LIGHT THEME ====================*/ 
-const themeButton = document.getElementById('theme-button');
-const darkTheme = 'dark-theme';
-const iconTheme = 'bx-sun';
+// /*==================== DARK LIGHT THEME ====================*/ 
+// const themeButton = document.getElementById('theme-button');
+// const darkTheme = 'dark-theme';
+// const iconTheme = 'bx-sun';
 
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme');
-const selectedIcon = localStorage.getItem('selected-icon');
+// // Previously selected topic (if user selected)
+// const selectedTheme = localStorage.getItem('selected-theme');
+// const selectedIcon = localStorage.getItem('selected-icon');
 
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'bx-moon' : 'bx-sun';
+// // We obtain the current theme that the interface has by validating the dark-theme class
+// const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
+// const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'bx-moon' : 'bx-sun';
 
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-// If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme);
-themeButton.classList[selectedIcon === 'bx-moon' ? 'add' : 'remove'](iconTheme);
-}
+// // We validate if the user previously chose a topic
+// if (selectedTheme) {
+// // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+// document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme);
+// themeButton.classList[selectedIcon === 'bx-moon' ? 'add' : 'remove'](iconTheme);
+// }
 
 // Activate / deactivate the theme manually with the button
 // themeButton.addEventListener('click', () => {
@@ -112,21 +113,21 @@ themeButton.classList[selectedIcon === 'bx-moon' ? 'add' : 'remove'](iconTheme);
 
 
 /*==================== SCROLL REVEAL ANIMATION ====================*/
-const sr = ScrollReveal({
-  origin: 'top',
-  distance: '30px',
-  duration: 2000,
-  reset: true
-});
+// const sr = ScrollReveal({
+//   origin: 'top',
+//   distance: '30px',
+//   duration: 2000,
+//   reset: true
+// });
 
-sr.reveal(`.home__data, .home__img,
-          .about__data, .about__img,
-          .services__content, .menu__content,
-          .app__data, .app__img,
-          .contact__data, .contact__button,
-          .footer__content`, {
-  interval: 200
-})
+// sr.reveal(`.home__data, .home__img,
+//           .about__data, .about__img,
+//           .services__content, .menu__content,
+//           .app__data, .app__img,
+//           .contact__data, .contact__button,
+//           .footer__content`, {
+//   interval: 200
+// })
 
 //! FUNCTIONALITY SCRIPTS
 const queryParams = new URLSearchParams(window.location.search);
@@ -146,6 +147,7 @@ useEffect(() => {
 
 
          setStore(infocont.store_name);
+         setStorecode(infocont.store_code);
          setTagline(infocont.store_tagline);
          setLogo(URL + infocont.location);
          setDesc(infocont.store_description);
@@ -166,9 +168,10 @@ const [info, setInfo] = useState([]);
 
 // console.log(info);
 const [store , setStore] = useState('Store Name');
+const [storecode , setStorecode] = useState('Store Name');
 const [tagline , setTagline] = useState('Store Tagline');
-const [logo , setLogo] = useState('/img/home.png');
-const [about , setAbout] = useState('/img/about.jpg');
+const [logo , setLogo] = useState('./home.png');
+const [about , setAbout] = useState('./about.jpg');
 
 
 const [desc , setDesc] = useState('Store Description');
@@ -184,9 +187,12 @@ const [twitter , setTwitter] = useState('');
 
 
 
+const [cc, setCc] = useState('copy');
 
 
-
+const oncopy = ( () => {
+    setCc('copied!');
+});
 
 
 
@@ -252,21 +258,21 @@ const [twitter , setTwitter] = useState('');
 
             <div className="services__container  bd-grid">
                 <div className="services__content">
-                <img src="/img/time.png" alt="" className="services__img"></img>
+                <img src="./time.png" alt="" className="services__img"></img>
                   
                     <h3 className="services__title">{time}</h3>
                     <p className="services__description"> Our Store Hours</p>
                 </div>
 
                 <div className="services__content">
-                <img src="/img/call.png" alt="" className="services__img"></img>
+                <img src="./call.png" alt="" className="services__img"></img>
                     
                     <h3 className="services__title">{call}</h3>
                     <p className="services__description">Call us here</p>
                 </div>
 
                 <div className="services__content">
-                <img src="/img/map.png" alt="" className="services__img"></img>
+                <img src="./map.png" alt="" className="services__img"></img>
                     
                     <h3 className="services__title">{location}</h3>
                     <p className="services__description">Get Directions</p>
@@ -288,13 +294,29 @@ const [twitter , setTwitter] = useState('');
                     <span className="section-subtitle app__initial">App</span>
                     <h2 className="section-title app__initial">App is avaible</h2>
                     <p className="app__description">Find our application and download it food orders, see your deliveries on the way and much more.</p>
+                    <pre>
+                        Step1:
+                    </pre>
+                 
+                    <p>Copy Store Subscription Code</p><code className="appstep2">{storecode}</code>
+                    <CopyToClipboard text={storecode}>
+                    <button className="cclip round-icon" onClick={oncopy}>{cc}</button>
+                    </CopyToClipboard>
+                    <pre>
+                        Step2:
+                    </pre>
+                    <p>Click AWS to <a href="https://bananabucketapps.s3-ap-southeast-1.amazonaws.com/Sarappy.apk">Download</a></p>
                     <div className="app__stores">
-                        <a href="#"><img src="/img/AWS.png" alt="" className="app__store"></img></a>
+                        <a href="https://bananabucketapps.s3-ap-southeast-1.amazonaws.com/Sarappy.apk"><img src="./AWS.png" alt="" className="app__store"></img></a>
                         {/* <a href="#"><img src="/img/drive.png" alt="" className="app__store"></img></a> */}
                     </div>
+                    <pre>
+                        Step3:
+                    </pre>
+                    <p>Once Installed, paste the subscription code on the app.</p>
                 </div>
 
-                <img src="/img/movil-app.png" alt="" className="app__img"></img>
+                <img src="./movil-app.png" alt="" className="app__img"></img>
             </div>
         </section>
 

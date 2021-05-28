@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/dev_tech/landingstatic/css/main.b0676e47.chunk.css",
+    "main.js": "/dev_tech/landingstatic/js/main.5f14a34f.chunk.js",
+    "main.js.map": "/dev_tech/landingstatic/js/main.5f14a34f.chunk.js.map",
+    "runtime-main.js": "/dev_tech/landingstatic/js/runtime-main.f7d651fa.js",
+    "runtime-main.js.map": "/dev_tech/landingstatic/js/runtime-main.f7d651fa.js.map",
+    "static/js/2.1c59057c.chunk.js": "/dev_tech/landingstatic/js/2.1c59057c.chunk.js",
+    "static/js/2.1c59057c.chunk.js.map": "/dev_tech/landingstatic/js/2.1c59057c.chunk.js.map",
+    "static/js/3.aaf845b4.chunk.js": "/dev_tech/landingstatic/js/3.aaf845b4.chunk.js",
+    "static/js/3.aaf845b4.chunk.js.map": "/dev_tech/landingstatic/js/3.aaf845b4.chunk.js.map",
+    "index.html": "/dev_tech/landingindex.html",
+    "static/css/main.b0676e47.chunk.css.map": "/dev_tech/landingstatic/css/main.b0676e47.chunk.css.map",
+    "static/js/2.1c59057c.chunk.js.LICENSE.txt": "/dev_tech/landingstatic/js/2.1c59057c.chunk.js.LICENSE.txt",
+    "static/js/main.5f14a34f.chunk.js.LICENSE.txt": "/dev_tech/landingstatic/js/main.5f14a34f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7d651fa.js",
+    "static/js/2.1c59057c.chunk.js",
+    "static/css/main.b0676e47.chunk.css",
+    "static/js/main.5f14a34f.chunk.js"
+  ]
+}

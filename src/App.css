@@ -644,3 +644,36 @@ border-top: 1px solid #999;
 .category:last-child{
   margin-right: 0;
 }
+
+.appstep2{
+  color: red;
+  font-weight: 700;
+  font-size: 20px;
+  border-style: groove;
+  padding: 5px;
+}
+
+.cclip{
+  font-family: 'Muli', sans-serif;
+  -webkit-transition: 0.15s all ease-in-out;
+  -o-transition: 0.15s all ease-in-out;
+  transition: 0.15s all ease-in-out;
+  cursor: pointer; 
+}
+.round-icon {
+  background: #069c54;
+  border-radius: 30px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 15px;
+  text-decoration: none; }
+  .round-icon .vl {
+    width: 1px;
+    border-right: 1px solid #fff;
+    height: 16px;
+    margin: 0 0 0 10px; }
+  .round-icon i {
+    font-size: 16px;
+    padding-left: 10px;
+    vertical-align: baseline; }
